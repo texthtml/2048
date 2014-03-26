@@ -16,7 +16,7 @@ $tile-color: #eee4da;
 $tile-gold-color: #edc22e;
 $tile-gold-glow-color: lighten($tile-gold-color, 15%);
 
-$game-container-margin-top: 40px;
+$game-container-margin: 40px auto 0 auto;
 $game-container-background: #bbada0;
 
 $transition-speed: 100ms;
@@ -57,6 +57,12 @@ h1.title {
     top: -50px;
     opacity: 0;
   }
+}
+
+.the-ia-editor {
+  height: 400px;
+  border-radius: 6px;
+  border: 10px solid #001B26;
 }
 
 .scores-container {
@@ -141,7 +147,7 @@ hr {
 }
 
 .container {
-  width: $field-width;
+  width: $field-width + 300px;
   margin: 0 auto;
 }
 
@@ -170,7 +176,7 @@ hr {
 // Game field mixin used to render CSS at different width
 @mixin game-field {
   .game-container {
-    margin-top: $game-container-margin-top;
+    margin: $game-container-margin;
     position: relative;
     padding: $grid-spacing;
 
@@ -479,7 +485,7 @@ hr {
   $grid-row-cells: 4;
   $tile-size: ($field-width - $grid-spacing * ($grid-row-cells + 1)) / $grid-row-cells;
   $tile-border-radius: 3px;
-  $game-container-margin-top: 17px;
+  $game-container-margin-top: 17px 0 0 0;
 
   html, body {
     font-size: 15px;

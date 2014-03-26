@@ -1,4 +1,5 @@
-function HTMLActuator() {
+function HTMLActuator(inputManager) {
+  this.inputManager     = inputManager;
   this.tileContainer    = document.querySelector(".tile-container");
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
@@ -33,6 +34,27 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
     }
 
   });
+
+  if (!metadata.terminated) {
+    var gameState = [[], [], [], []];
+    grid.cells.forEach(function (cells) {
+      cells.forEach(function (cell) {
+        if (cell !== null) {
+          gameState[cell.x][cell.y] = cell.value;
+        }
+      });
+    });
+
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        if (gameState[i][j] === undefined) {
+          gameState[i][j] = null;
+        }
+      }
+    }
+
+    self.inputManager.continue(gameState);
+  }
 };
 
 // Continues the game (both restart and keep playing)
