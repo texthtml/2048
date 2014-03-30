@@ -9,6 +9,9 @@ function KeyboardInputManager() {
     'left' : 3, // Left
   };
 
+  var delayInput = document.getElementById('delay');
+  var timeout;
+
   this.editor = ace.edit("ia-editor");
   this.editor.setTheme("ace/theme/solarized_dark");
   this.editor.getSession().setMode("ace/mode/javascript");
@@ -36,7 +39,10 @@ function KeyboardInputManager() {
 
     var mapped = map[direction];
     if (mapped !== undefined) {
-      self.emit("move", mapped);
+      window.clearTimeout(timeout);
+      timeout = window.setTimeout(function () {
+        self.emit("move", mapped);
+      }, Number.parseInt(delayInput.value));
     }
   };
 
@@ -79,7 +85,6 @@ KeyboardInputManager.prototype.listen = function () {
     if (event.ctrlKey && event.which === 13) {
       var IA;
       eval(self.editor.getValue());
-      console.log(self.editor.getValue(), IA);
       self.nextDirection = IA;
       self.restart.call(self, event);
     }
